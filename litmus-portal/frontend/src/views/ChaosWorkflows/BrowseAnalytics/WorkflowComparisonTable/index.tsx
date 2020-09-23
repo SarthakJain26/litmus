@@ -28,7 +28,7 @@ import {
   sortNumAsc,
   sortNumDesc,
 } from '../../../../utils/sort';
-import { SCHEDULE_DETAILS } from '../../../../graphql/quries';
+import { SCHEDULE_DETAILS } from '../../../../graphql';
 import {
   Schedules,
   ScheduleDataVars,

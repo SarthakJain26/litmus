@@ -12,15 +12,17 @@ import UserManagement from '../../views/Settings/UserManagementTab/UserManagemen
 import useStyles from './styles';
 
 interface TabPanelProps {
-  children: React.ReactNode;
   index: any;
   value: any;
 }
 
 // TabPanel ise used to implement the functioning of tabs
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
+const TabPanel: React.FC<TabPanelProps> = ({
+  children,
+  value,
+  index,
+  ...other
+}) => {
   return (
     <div
       role="tabpanel"
@@ -32,7 +34,7 @@ function TabPanel(props: TabPanelProps) {
       {value === index && <Box style={{ marginLeft: 15 }}>{children}</Box>}
     </div>
   );
-}
+};
 
 // tabProps returns 'id' and 'aria-control' props of Tab
 function tabProps(index: any) {

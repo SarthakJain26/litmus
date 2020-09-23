@@ -3,7 +3,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
 import * as React from 'react';
 
-// Agument the Theme interface
+// Augment the Theme interface
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
     // newProperty: {
@@ -18,7 +18,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   }
 }
 
-// Augument the Palette interface
+// Augment the Palette interface
 declare module '@material-ui/core/styles/createPalette' {
   interface Palette {
     customColors: {

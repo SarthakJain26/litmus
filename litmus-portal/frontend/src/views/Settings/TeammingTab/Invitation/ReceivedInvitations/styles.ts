@@ -30,5 +30,8 @@ const useStyles = makeStyles((theme) => ({
   buttonDiv: {
     display: 'flex',
   },
+  snackbar: {
+    bottom: '10rem',
+  },
 }));
 export default useStyles;

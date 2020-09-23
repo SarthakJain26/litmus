@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ButtonFilled from '../../../../../components/Button/ButtonFilled';
 import ButtonOutline from '../../../../../components/Button/ButtonOutline';
+import Toast from '../../../../../components/Toast';
 import {
   ACCEPT_INVITE,
   DECLINE_INVITE,
@@ -32,6 +33,12 @@ interface ReceivedInvitation {
   projectID: string;
 }
 
+interface SnackbarState {
+  open: boolean;
+  message: string;
+  type: 'success' | 'error' | 'info' | 'warning';
+}
+
 const ReceivedInvitations: React.FC = () => {
   const classes = useStyles();
 
@@ -42,6 +49,13 @@ const ReceivedInvitations: React.FC = () => {
 
   // stores the user whose invitation is accepted/declined
   const [acceptDecline, setAcceptDecline] = useState<string>('');
+
+  // state to open snackbar when invitation is accepted
+  const [openSnackbar, setOpenSnackbar] = useState<SnackbarState>({
+    open: false,
+    message: '',
+    type: 'success',
+  });
 
   // mutation to accept the invitation
   const [acceptInvite] = useMutation<MemberInvitation>(ACCEPT_INVITE, {
@@ -107,6 +121,28 @@ const ReceivedInvitations: React.FC = () => {
     <div>
       <TableContainer className={classes.table}>
         <Table>
+          {/* <button
+            onClick={() => {
+              setOpenSnackbar({
+                open: true,
+                message: 'Invitation Declined!',
+                type: 'error',
+              });
+            }}
+          >
+            <div>Ignore</div>
+          </button>
+          <button
+            onClick={() => {
+              setOpenSnackbar({
+                open: true,
+                message: 'Invitation Accepted!',
+                type: 'success',
+              });
+            }}
+          >
+            <div>Ignore</div>
+          </button>  */}
           {rows.length > 0 ? (
             rows.map((row) => (
               <TableRow key={row.username}>
@@ -131,6 +167,11 @@ const ReceivedInvitations: React.FC = () => {
                     <div className={classes.buttonDiv}>
                       <ButtonOutline
                         handleClick={() => {
+                          setOpenSnackbar({
+                            open: true,
+                            message: 'Invitation Declined!',
+                            type: 'error',
+                          });
                           setAcceptDecline(row.username);
                           declineInvite({
                             variables: {
@@ -148,6 +189,11 @@ const ReceivedInvitations: React.FC = () => {
                       <ButtonFilled
                         isPrimary={false}
                         handleClick={() => {
+                          setOpenSnackbar({
+                            open: true,
+                            message: 'Invitation Accepted!',
+                            type: 'success',
+                          });
                           setAcceptDecline(row.username);
                           acceptInvite({
                             variables: {
@@ -176,6 +222,20 @@ const ReceivedInvitations: React.FC = () => {
           )}
         </Table>
       </TableContainer>
+      <Toast
+        style={{ bottom: '10rem' }}
+        open={openSnackbar.open}
+        message={openSnackbar.message}
+        type={openSnackbar.type}
+        onClose={() =>
+          setOpenSnackbar({ open: false, message: '', type: 'success' })
+        }
+        autoHideDuration={2000}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+      />
     </div>
   );
 };

@@ -11,11 +11,7 @@ const useStyles = makeStyles({
   },
 });
 
-interface CenterProps {
-  children: React.ReactNode;
-}
-
-const Center: React.FC<CenterProps> = ({ children }) => {
+const Center: React.FC = ({ children }) => {
   const classes = useStyles();
   return <div className={classes.center}>{children}</div>;
 };
